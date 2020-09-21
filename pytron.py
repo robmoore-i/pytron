@@ -18,6 +18,7 @@ class Biker:
         self.name = name
         self.controls = controls
         self.direction = "right"
+        self.turtle.pencolor("red")
 
     def matches(self, event):
         return self.controls.is_mapped(event.char)
@@ -84,10 +85,8 @@ class KeyboardListener:
         self.listeners.append(listener)
 
     def on_key_press(self, event):
-        print("You pressed " + event.char)
         for listener in self.listeners:
             if listener.matches(event):
-                print("turtle: " + listener.get_name())
                 listener.handle(event)
 
 
