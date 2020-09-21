@@ -90,7 +90,6 @@ class KeyboardListener:
                 listener.handle(event)
 
 
-# Make one turtle move around
 def main():
     canvas = getcanvas()
     root = canvas.winfo_toplevel()
