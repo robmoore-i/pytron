@@ -8,18 +8,65 @@ class BikerControls:
         self.down_key = down_key
         self.right_key = right_key
 
+    def is_mapped(self, event_char):
+        return self.up_key == event_char or self.left_key == event_char or self.down_key == event_char or self.right_key == event_char
+
 
 class Biker:
     def __init__(self, turtle, name, controls):
         self.turtle = turtle
         self.name = name
         self.controls = controls
+        self.direction = "right"
 
     def matches(self, event):
-        return event.char == self.controls.right_key
+        return self.controls.is_mapped(event.char)
 
     def handle(self, event):
+        if self.controls.right_key == event.char and not self.direction == "left":
+            self.go_right()
+        elif self.controls.left_key == event.char and not self.direction == "right":
+            self.go_left()
+        elif self.controls.up_key == event.char and not self.direction == "down":
+            self.go_up()
+        elif self.controls.down_key == event.char and not self.direction == "up":
+            self.go_down()
+
+    def go_right(self):
+        if self.direction == "up":
+            self.turtle.rt(90)
+        elif self.direction == "down":
+            self.turtle.lt(90)
+
         self.turtle.fd(50)
+        self.direction = "right"
+
+    def go_left(self):
+        if self.direction == "up":
+            self.turtle.lt(90)
+        elif self.direction == "down":
+            self.turtle.rt(90)
+
+        self.turtle.fd(50)
+        self.direction = "left"
+
+    def go_up(self):
+        if self.direction == "right":
+            self.turtle.lt(90)
+        elif self.direction == "left":
+            self.turtle.rt(90)
+
+        self.turtle.fd(50)
+        self.direction = "up"
+
+    def go_down(self):
+        if self.direction == "right":
+            self.turtle.rt(90)
+        elif self.direction == "left":
+            self.turtle.lt(90)
+
+        self.turtle.fd(50)
+        self.direction = "down"
 
     def get_to_position(self):
         self.turtle.penup()
